@@ -1,0 +1,4 @@
+SQL stands for Structured Query Language-its similar to the English language and it is used to put queries into the Database
+
+SQL can be used mainly by web developers, database admins, and for data analysts
+
