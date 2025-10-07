@@ -79,8 +79,6 @@ Relational databases are a type of database that organizes data into tables, whi
 
 5. **Normalization**: Normalization is the process of organizing data in a relational database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller, related tables and defining relationships between them.
 
-Here you go 👇 — a clean **SQL vs NoSQL comparison table** that you can copy straight into your notes:
-
 ---
 
 ## 📊 SQL vs NoSQL
@@ -105,8 +103,103 @@ Here you go 👇 — a clean **SQL vs NoSQL comparison table** that you can copy
 
 ---
 
+Challenges in SQL to learn CRUD operations 
+
+Question 1 : Ypu have been approached by a client who runs a small chai store and wants to set up a simple database to manage their local chai offerings. The Client has provied the following requirements:
+
+Database Setup:
+
+**Create a database named "ChaiStoreDB".**
+
+Chai Table:
+
+create a table named chai_store with the following columns:
+
+id: A unique identifier for each chai (auto incrementing)
+chai_name: The name of the chai (e.g., Masala Chai, Ginger Chai)
+price: The price of the chai (decimal)
+chai_type:Type of chai(e.g., Black, Green, Herbal)
+available : Boolean Value indicating if the chai is currently available
 
 
+**Solution:**
 
+```sql
 
+CREATE TABLE chai_store(
+id        	SERIAL PRIMARY KEY,
+chai_name 	VARCHAR(50),
+price     	DECIMAL(5,2),
+chai_type 	VARCHAR(50),
+available 	BOOLEAN
+);
+
+```
+
+Initial Data Insertion:
+
+The client provides a list of their Chai offerings and wants you to insert the following data :
+
+Masala Chai - ₹30 - Spiced - Available
+Green Chai - ₹25 - Herbal - Available
+Black Chai - ₹20 - Classic - Available
+Iced Chai - ₹35 - Cold - Not Available
+Oolong Chai - ₹40 - Specialty - Available
+
+**Solution:**
+
+```sql
+INSERT INTO chai_store (chai_name, price, chai_type, available) VALUES
+('Masala Chai', 30.00, 'Spiced', TRUE),
+('Green Chai', 25.00, 'Herbal', TRUE),
+('Black Chai', 20.00, 'Classic', TRUE),
+('Iced Chai', 35.00, 'Cold', FALSE),
+('Oolong Chai', 40.00, 'Specialty', TRUE);
+```
+
+Data Queries:
+
+The client needs some reports:
+
+-Display all chai names and prices , using column aliases like "Chai Name" and "Cost in INR"
+-Find all chai varietites that have the word "Chai" in their name 
+-List all Chai vaarieties that cost less than ₹30
+-Show all chai varieties sorted by price from highest to lowest
+
+**Solution:**
+
+```sql
+-- Display all chai names and prices with column aliases
+SELECT chai_name AS "Chai Name", price AS "Cost in INR" FROM chai_store;
+-- Find all chai varieties that have the word "Chai" in their name
+SELECT * FROM chai_store WHERE chai_name LIKE '%Chai%';
+-- List all Chai varieties that cost less than ₹30
+SELECT * FROM chai_store WHERE price < 30.00;
+-- Show all chai varieties sorted by price from highest to lowest
+SELECT * FROM chai_store ORDER BY price DESC;
+```
+
+**Data Update**:
+The client wants to make some changes:
+-Update the price of "Iced Chai" to ₹38 and mark it as available
+
+**Data Deletion**:
+
+The client decides to discontinue "Black Chai" and wants it removed from the database
+
+**Solution:**
+
+```sql
+
+UPDATE chai_store 
+SET price = 38.0,available = TRUE
+WHERE chai_name = 'Iced Chai'
+
+SELECT * from chai_store
+
+DELETE FROM chai_store
+WHERE chai_name = 'Black Chai';
+
+SELECT * from chai_store
+```
 
