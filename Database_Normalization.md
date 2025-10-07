@@ -27,3 +27,31 @@ INSERT INTO orders (customer_name, products, quantities) VALUES
 ('Bob', 'Product3', '1');
 
 ```
+
+```sql
+
+CREATE TABLE order_details(
+    order_id INT,
+    product_id INT,
+    customer_name VARCHAR(100), --This depends on order_id and not product_id
+    product_name VARCHAR(100), --This depends on product_id and not order_id
+    quantity INT,
+    PRIMARY KEY (order_id, product_id)
+);
+-- This Table is in 1NF but not in 2NF
+-- To convert it to 2NF we need to remove the partial dependency by creating separate tables for orders and products
+```
+```sql
+    CREATE TABLE order_details(
+    order_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    quantity INT,
+    product_id INT,
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+CREATE TABLE products(
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100)
+);
+
+-- Now the order_details table is in 2NF as all non-key attributes are fully dependent on the primary key
